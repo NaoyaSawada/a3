@@ -1,0 +1,7 @@
+#
+# HTTP Server
+# Web Framework
+#
+waitress==1.1.0
+pyramid==1.9.1
+
