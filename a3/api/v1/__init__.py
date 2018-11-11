@@ -9,7 +9,7 @@ def bootstrap(config):
 	#
 	# Scan controller
 	#
-	config.add_route('api::v1:account', '/accounts/')
+	config.add_route('api::v1:accounts', '/accounts/')
         config.include(account.bootstrap)
 
 #
