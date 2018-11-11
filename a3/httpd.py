@@ -13,6 +13,12 @@ def start_httpd(host = '0.0.0.0', port = 1103):
 	config = Configurator()
 
 	#
+	# API V1 の 読み込み
+	#
+	import api.v1
+	config.include(api.v1.bootstrap, route_prefix='api/v1/')
+
+	#
 	# HTTPDサーバの設定
 	#
 	app = config.make_wsgi_app()
