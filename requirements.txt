@@ -5,3 +5,9 @@
 waitress==1.1.0
 pyramid==1.9.1
 
+#
+# SQLAlchemy
+#
+SQLAlchemy==1.2.6
+alembic==0.9.9
+
