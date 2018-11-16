@@ -11,3 +11,8 @@ pyramid==1.9.1
 SQLAlchemy==1.2.6
 alembic==0.9.9
 
+#
+# JSON Validation
+#
+jsonschema==2.6.0
+

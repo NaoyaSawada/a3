@@ -27,17 +27,25 @@ class CacheManeger:
 	#
 	def set(self, key, value):
 		self._dict[key] = value
+		print self._dict
 
 	#
 	# get
 	#
 	def get(self, key):
-		if key in self._dict:
-			return self._dict[key]
+		if key in self._dict: return self._dict[key]
 		return None
+
+	#
+	# delete
+	#
+	def delete(self, key):
+		return self._dict.pop(key)
 
 if __name__ == '__main__':
 	cache = CacheManeger.getInstance()
 	cache.set('aa', 1)
 	cache.set('aa', 1)
+	cache.delete('aa')
+	cache.set('bb', 1)
 

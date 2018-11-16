@@ -38,8 +38,18 @@ Session = scoped_session(session_factory)
 # セッションの取得
 #
 class SessionFactory:
+	#
+	# コンストラクタ
+	#
 	def __init__(self):
 		self.sesion = None
+
+	#
+	# セッション取得
+	#
+	@classmethod
+	def createSession(cls):
+		return Session()
 
 	#
 	# ENTER
