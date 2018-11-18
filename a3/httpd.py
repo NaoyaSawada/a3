@@ -1,12 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+#
+# Command Line Utility
+#
+import click
+
+#
+# Web Application Framework
+#
 from waitress import serve
 from pyramid.config import Configurator
 
 #
 # Start HTTPD
 #
-def start_httpd(host = '0.0.0.0', port = 1103):
+@click.command()
+@click.option('--host', '-h', default = '0.0.0.0')
+@click.option('--port', '-p', default = 1103)
+def start_httpd(host, port):
 	#
 	# WEB アプリケーションの設定
 	#
