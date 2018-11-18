@@ -26,3 +26,8 @@ click==7.0
 #
 cachetools==3.0.0
 
+#
+# Test Code
+#
+requests==2.20.1
+
