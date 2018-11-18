@@ -16,3 +16,13 @@ alembic==0.9.9
 #
 jsonschema==2.6.0
 
+#
+# Command Line Tools
+#
+click==7.0
+
+#
+# In-Memory DB
+#
+cachetools==3.0.0
+

@@ -38,5 +38,23 @@ if __name__ == '__main__':
 		packages	= find_packages(),
 		install_requires= _install_requires(),
 		package_dir	= { 'a3' : 'a3' },
+
+package_data	= {
+			'eyed'		: [
+				'alembic.ini',
+				'alembic/README',
+				'alembic/env.py',
+				'alembic/script.py.mako',
+				'alembic/versions/*.py'
+			],
+		},
+
+		#
+		# Command Line Utilities
+		#
+		entry_points	= '''
+		[console_scripts]
+		a3d = a3.httpd:start_httpd
+		''',
 	)
 
