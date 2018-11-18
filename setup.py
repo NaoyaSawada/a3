@@ -39,8 +39,11 @@ if __name__ == '__main__':
 		install_requires= _install_requires(),
 		package_dir	= { 'a3' : 'a3' },
 
-package_data	= {
-			'eyed'		: [
+		#
+		# Static Files
+		#
+		package_data	= {
+			'a3'		: [
 				'alembic.ini',
 				'alembic/README',
 				'alembic/env.py',
@@ -56,5 +59,10 @@ package_data	= {
 		[console_scripts]
 		a3d = a3.httpd:start_httpd
 		''',
+
+		#
+		# Test Case
+		#
+		test_suite	= 'test_cases',
 	)
 

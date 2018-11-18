@@ -7,6 +7,11 @@
 import click
 
 #
+# Daemon Auto Boot Utility
+#
+from a3.boot import boot
+
+#
 # Web Application Framework
 #
 from waitress import serve
@@ -19,6 +24,11 @@ from pyramid.config import Configurator
 @click.option('--host', '-h', default = '0.0.0.0')
 @click.option('--port', '-p', default = 1103)
 def start_httpd(host, port):
+	#
+	# 自動起動時にDBスキーマを最新化
+	#
+	boot.doAlembicUpgradeHead()
+
 	#
 	# WEB アプリケーションの設定
 	#
