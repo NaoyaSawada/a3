@@ -16,7 +16,7 @@ from a3.api.common.response import OK, Error
 # Database
 #
 from a3.db import SessionFactory
-from model import Account
+from a3.model import Account
 
 #
 # Cache Manager

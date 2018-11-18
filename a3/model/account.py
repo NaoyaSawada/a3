@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from base import BaseObject
+from a3.model import BaseObject
 from sqlalchemy import Column, Integer, String, BOOLEAN, ForeignKey
 
 #
