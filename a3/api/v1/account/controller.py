@@ -23,6 +23,7 @@ from model import Account
 #
 import uuid
 from a3.cache import CacheManeger
+
 #
 # アカウント関連の操作
 #
@@ -37,9 +38,59 @@ class AccountsController:
 	#
 	# サインイン処理
 	#
-	#@view_config(request_method = 'GET')
-	#def signin(self):
-	#	return OK()
+	@view_config(request_method = 'GET')
+	def signin(self):
+		#
+		# JSON の 書式定義
+		#
+		schema = {
+			'type'		: 'object',
+			'properties'	: {
+				'mail' : {
+					'type'		: 'string',
+					'oneOf'		: [{ 'format' : 'email' }]
+				},
+				'password' : {
+					'type'		: 'string',
+				}
+			},
+			#
+			# 追加の引数を許可しない
+			#
+			'additionalProperties'	: False,
+			'required'		: ['mail', 'password'],
+		}
+
+		#
+		# 書式チェックの実施
+		#
+		try:
+			jsonschema.validate(self.request.json_body, schema)
+		#
+		# JSON内のデータ書式に問題がある場合
+		#
+		except jsonschema.ValidationError as e:
+			return Error(e.message)
+		#
+		# JSONの書式に問題がある場合
+		#
+		except ValueError:
+			return Error('JSON Syntax error...')
+
+		#
+		# バリデーション結果の取得
+		#
+		mail = self.request.json_body['mail']
+		password = self.request.json_body['password']
+
+		#
+		# アカウントの検索
+		#
+		session = SessionFactory.createSession()
+		account = session.query(Account).filter_by(mail = mail).first()
+		if not account == None:
+			pass
+		return Error('Username or Password is invalid...')
 
 	#
 	# サインアップ処理
