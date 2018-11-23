@@ -100,7 +100,17 @@ class AccountsController:
 		# アカウントが存在しパスワードが正しいかを確認
 		#
 		if not account == None and account.validate(password) == True:
-			return OK()
+			#
+			# アカウント検証用 の トークンの発行 & 保存
+			#
+			ticket = str(uuid.uuid4())
+			cache = CacheManeger.getNamespace('signin:ticket')
+			cache.set(ticket, account.uuid)
+
+			#
+			# チケットを返す
+			#
+			return OK({ 'ticket' : ticket })
 		return Error('Username or Password is invalid...')
 
 	#
@@ -174,7 +184,7 @@ class AccountsController:
 		# アカウント検証用 の トークンの発行 & 保存
 		#
 		token = str(uuid.uuid4())
-		cache = CacheManeger.getNamespace('signup')
+		cache = CacheManeger.getNamespace('signup:token')
 		cache.set(token, account.uuid)
 
 		#
@@ -233,7 +243,7 @@ class AccountsController:
 		#
 		# トークンのアカウント取得
 		#
-		cache = CacheManeger.getNamespace('signup')
+		cache = CacheManeger.getNamespace('signup:token')
 		account_uuid = cache.get(token)
 		if account_uuid == None:
 			return Error('This token is already expired...')
