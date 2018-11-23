@@ -49,6 +49,17 @@ class Account(BaseObject):
 		self.lock = False
 
 	#
+	# パスワードの確認
+	#
+	def validate(self, password):
+		#
+		# パスワードのハッシュを確認
+		#
+		if self.hash == self.getHash(password, self.uuid):
+			return True
+		return False
+
+	#
 	# 文字列化
 	#
 	def __str__(self):

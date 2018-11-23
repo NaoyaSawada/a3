@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from cachetools import TTLCache
+from driver import MemoryCacheDriver
 
 #
 # CacheManeger
@@ -10,7 +10,7 @@ class CacheManeger:
 	# インスタンス保持用変数
 	#
 	_instance = None
-	_dict = None
+	_driver = None
 
 	#
 	# get Instance
@@ -19,33 +19,23 @@ class CacheManeger:
 	def getInstance(cls):
 		if cls._instance is None:
 			cls._instance = cls()
-			cls._dict = TTLCache(maxsize=1024, ttl=3600)
+			cls._driver = MemoryCacheDriver()
 		return cls._instance
 
 	#
-	# set
+	# ドライバ内の名前空間を返す
 	#
-	def set(self, key, value):
-		self._dict[key] = value
-		print self._dict
+	@classmethod
+	def getNamespace(cls, name):
+		#
+		# インスタンス取得
+		#
+		CacheManeger.getInstance()
+		return cls._driver.getNamespace(name)
 
-	#
-	# get
-	#
-	def get(self, key):
-		if key in self._dict: return self._dict[key]
-		return None
-
-	#
-	# delete
-	#
-	def delete(self, key):
-		return self._dict.pop(key)
-
+#
+# Entry Point
+#
 if __name__ == '__main__':
-	cache = CacheManeger.getInstance()
-	cache.set('aa', 1)
-	cache.set('aa', 1)
-	cache.delete('aa')
-	cache.set('bb', 1)
+	pass
 

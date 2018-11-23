@@ -38,7 +38,7 @@ class AccountsController:
 	#
 	# サインイン処理
 	#
-	@view_config(request_method = 'GET')
+	@view_config(request_method = 'PUT')
 	def signin(self):
 		#
 		# JSON の 書式定義
@@ -48,11 +48,14 @@ class AccountsController:
 			'properties'	: {
 				'mail' : {
 					'type'		: 'string',
-					'oneOf'		: [{ 'format' : 'email' }]
+					'format'	: 'email'
 				},
 				'password' : {
 					'type'		: 'string',
-				}
+				},
+				#'application_key'
+				#
+				#
 			},
 			#
 			# 追加の引数を許可しない
@@ -65,7 +68,11 @@ class AccountsController:
 		# 書式チェックの実施
 		#
 		try:
-			jsonschema.validate(self.request.json_body, schema)
+			jsonschema.validate(
+				self.request.json_body,
+				schema,
+				format_checker=jsonschema.FormatChecker()
+			)
 		#
 		# JSON内のデータ書式に問題がある場合
 		#
@@ -88,8 +95,12 @@ class AccountsController:
 		#
 		session = SessionFactory.createSession()
 		account = session.query(Account).filter_by(mail = mail).first()
-		if not account == None:
-			pass
+
+		#
+		# アカウントが存在しパスワードが正しいかを確認
+		#
+		if not account == None and account.validate(password) == True:
+			return OK()
 		return Error('Username or Password is invalid...')
 
 	#
@@ -163,7 +174,7 @@ class AccountsController:
 		# アカウント検証用 の トークンの発行 & 保存
 		#
 		token = str(uuid.uuid4())
-		cache = CacheManeger.getInstance()
+		cache = CacheManeger.getNamespace('signup')
 		cache.set(token, account.uuid)
 
 		#
@@ -222,7 +233,7 @@ class AccountsController:
 		#
 		# トークンのアカウント取得
 		#
-		cache = CacheManeger.getInstance()
+		cache = CacheManeger.getNamespace('signup')
 		account_uuid = cache.get(token)
 		if account_uuid == None:
 			return Error('This token is already expired...')

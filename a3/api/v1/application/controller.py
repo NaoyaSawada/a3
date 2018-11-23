@@ -66,7 +66,7 @@ class ApplicationsController:
 				},
 				'callback_url' : {
 					'type'		: 'string',
-					'format'	: 'email'
+					'format'	: 'uri'
 				}
 			},
 			#
