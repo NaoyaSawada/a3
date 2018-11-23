@@ -105,7 +105,7 @@ class AccountsController:
 			'properties'	: {
 				'mail' : {
 					'type'		: 'string',
-					'oneOf'		: [{ 'format' : 'email' }]
+					'format'	: 'email'
 				},
 				'password' : {
 					'type'		: 'string',
@@ -122,7 +122,11 @@ class AccountsController:
 		# 書式チェックの実施
 		#
 		try:
-			jsonschema.validate(self.request.json_body, schema)
+			jsonschema.validate(
+				self.request.json_body,
+				schema,
+				format_checker=jsonschema.FormatChecker()
+			)
 		#
 		# JSON内のデータ書式に問題がある場合
 		#
@@ -180,7 +184,7 @@ class AccountsController:
 			'properties'	: {
 				'token' : {
 					'type'		: 'string',
-					'oneOf'		: [{ 'format' : 'uuid' }]
+					'format'	: 'uuid'
 				},
 			},
 			#
@@ -194,7 +198,11 @@ class AccountsController:
 		# 書式チェックの実施
 		#
 		try:
-			jsonschema.validate(self.request.json_body, schema)
+			jsonschema.validate(
+				self.request.json_body,
+				schema,
+				format_checker=jsonschema.FormatChecker()
+			)
 		#
 		# JSON内のデータ書式に問題がある場合
 		#
