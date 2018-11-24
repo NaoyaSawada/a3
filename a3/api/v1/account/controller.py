@@ -36,84 +36,6 @@ class AccountsController:
 		self.request = request
 
 	#
-	# サインイン処理
-	#
-	@view_config(request_method = 'PUT')
-	def signin(self):
-		#
-		# JSON の 書式定義
-		#
-		schema = {
-			'type'		: 'object',
-			'properties'	: {
-				'mail' : {
-					'type'		: 'string',
-					'format'	: 'email'
-				},
-				'password' : {
-					'type'		: 'string',
-				},
-				#'application_key'
-				#
-				#
-			},
-			#
-			# 追加の引数を許可しない
-			#
-			'additionalProperties'	: False,
-			'required'		: ['mail', 'password'],
-		}
-
-		#
-		# 書式チェックの実施
-		#
-		try:
-			jsonschema.validate(
-				self.request.json_body,
-				schema,
-				format_checker=jsonschema.FormatChecker()
-			)
-		#
-		# JSON内のデータ書式に問題がある場合
-		#
-		except jsonschema.ValidationError as e:
-			return Error(e.message)
-		#
-		# JSONの書式に問題がある場合
-		#
-		except ValueError:
-			return Error('JSON Syntax error...')
-
-		#
-		# バリデーション結果の取得
-		#
-		mail = self.request.json_body['mail']
-		password = self.request.json_body['password']
-
-		#
-		# アカウントの検索
-		#
-		session = SessionFactory.createSession()
-		account = session.query(Account).filter_by(mail = mail).first()
-
-		#
-		# アカウントが存在しパスワードが正しいかを確認
-		#
-		if not account == None and account.validate(password) == True:
-			#
-			# アカウント検証用 の トークンの発行 & 保存
-			#
-			ticket = str(uuid.uuid4())
-			cache = CacheManeger.getNamespace('signin:ticket')
-			cache.set(ticket, account.uuid)
-
-			#
-			# チケットを返す
-			#
-			return OK({ 'ticket' : ticket })
-		return Error('Username or Password is invalid...')
-
-	#
 	# サインアップ処理
 	#
 	@view_config(request_method = 'POST')
@@ -185,7 +107,7 @@ class AccountsController:
 		#
 		token = str(uuid.uuid4())
 		cache = CacheManeger.getNamespace('signup:token')
-		cache.set(token, account.uuid)
+		cache.set(token, account.id)
 
 		#
 		# トークンを返す
@@ -244,15 +166,15 @@ class AccountsController:
 		# トークンのアカウント取得
 		#
 		cache = CacheManeger.getNamespace('signup:token')
-		account_uuid = cache.get(token)
-		if account_uuid == None:
+		account_id = cache.get(token)
+		if account_id == None:
 			return Error('This token is already expired...')
 
 		#
 		# DB へ メールアドレスの登録
 		#
 		session = SessionFactory.createSession()
-		account = session.query(Account).filter_by(uuid = account_uuid).first()
+		account = session.query(Account).filter_by(id = account_id).first()
 		if account == None:
 			return Error('This token is already expired...')
 

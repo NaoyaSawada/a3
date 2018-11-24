@@ -21,7 +21,7 @@ class Account(BaseObject):
 	#
 	# カラム定義
 	#
-	uuid	= Column('UUID', String(1024), primary_key=True)
+	id	= Column('ID', String(1024), primary_key=True)
 	mail	= Column('MAIL', String(1024))
 	hash	= Column('HASH', String(1024))
 	lock	= Column('LOCK', BOOLEAN)
@@ -30,9 +30,9 @@ class Account(BaseObject):
 	# コンストラクタ
 	#
 	def __init__(self, mail, password):
-		self.uuid = str(uuid.uuid4())
+		self.id = str(uuid.uuid4())
 		self.mail = mail
-		self.hash = self.getHash(password, self.uuid)
+		self.hash = self.getHash(password, self.id)
 		self.lock = True
 
 	#
@@ -55,7 +55,7 @@ class Account(BaseObject):
 		#
 		# パスワードのハッシュを確認
 		#
-		if self.hash == self.getHash(password, self.uuid):
+		if self.hash == self.getHash(password, self.id):
 			return True
 		return False
 
@@ -63,14 +63,14 @@ class Account(BaseObject):
 	# 文字列化
 	#
 	def __str__(self):
-		return '<Account uuid=%s mail=%s>' %(self.uuid, self.mail)
+		return '<Account id=%s mail=%s>' %(self.id, self.mail)
 
 	#
 	# 辞書化
 	#
 	def to_dict(self):
 		return {
-			'uuid'	: self.uuid,
+			'id'	: self.id,
 			'mail'	: self.mail,
 			'hash'	: self.hash
 		}
