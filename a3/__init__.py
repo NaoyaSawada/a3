@@ -5,12 +5,14 @@ import boot
 import cache
 import model
 import httpd
+import client
 
 __all__ = [
 	db,
 	boot,
 	cache,
 	model,
-	httpd
+	httpd,
+	client
 ]
 

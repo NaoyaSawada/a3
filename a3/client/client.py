@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import requests
 
-class Client:
+class A3Client:
 	#
 	# コンストラクタ
 	#
