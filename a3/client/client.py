@@ -53,7 +53,7 @@ class A3Client:
 		return json['ok']
 
 if __name__ == '__main__':
-	client = Client()
+	client = A3Client()
 	ok, ticket = client.signin('naoya@tuntunkun.com', 'test')
 	print client.validate(ticket)
 
