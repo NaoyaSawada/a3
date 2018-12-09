@@ -24,7 +24,7 @@ if __name__ == '__main__':
 		# Software Information
 		#
 		name		= 'a3',
-		version		= '0.6.0',
+		version		= '0.6.1',
 
 		#
 		# Author Information
@@ -37,7 +37,9 @@ if __name__ == '__main__':
 		#
 		packages	= find_packages(),
 		install_requires= _install_requires(),
-		package_dir	= { 'a3' : 'a3' },
+		package_dir	= {
+			''	: 'src'
+		},
 
 		#
 		# Static Files
