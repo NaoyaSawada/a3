@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from pyramid.session import SignedCookieSessionFactory
+session_factory = SignedCookieSessionFactory('tuntunkun')
 
 #
 # Command Line Utility
@@ -23,6 +25,17 @@ def start_httpd(host, port):
 	# WEB アプリケーションの設定
 	#
 	config = Configurator()
+
+	#
+	# Include Template Engne
+	#
+	config.include('pyramid_jinja2')
+	config.add_renderer('.html', 'pyramid_jinja2.renderer_factory')
+
+	#
+	# Session Library Configuration
+	#
+	config.set_session_factory(session_factory)
 
 	#
 	# WEB UI の 読み込み

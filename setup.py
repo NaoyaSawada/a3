@@ -60,6 +60,7 @@ if __name__ == '__main__':
 		entry_points	= '''
 		[console_scripts]
 		a3d = a3.httpd:start_httpd
+		a3wd = a3web.httpd:start_httpd
 		''',
 
 		#

@@ -6,6 +6,11 @@ waitress==1.1.0
 pyramid==1.9.1
 
 #
+# Template Engine
+#
+pyramid-jinja2==2.7
+
+#
 # SQLAlchemy
 #
 SQLAlchemy==1.2.6

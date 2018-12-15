@@ -16,9 +16,14 @@ class AccountsController:
 	#
 	# サインイン処理
 	#
-	@view_config(request_method = 'GET')
+	@view_config(request_method = 'GET', renderer='./templates/index.html')
 	def signin(self):
-		return True
+		session = self.request.session
+		if not 'counter' in session:
+			session['counter'] = 0
+		session['counter'] = session['counter'] + 1
+		print session['counter']
+		return {}
 
 	#
 	# サインアップ処理
