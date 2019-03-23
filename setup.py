@@ -38,7 +38,7 @@ if __name__ == '__main__':
 		packages	= find_packages(),
 		install_requires= _install_requires(),
 		package_dir	= {
-			''	: 'src'
+			'a3'	: 'a3'
 		},
 
 		#
