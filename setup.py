@@ -24,7 +24,7 @@ if __name__ == '__main__':
 		# Software Information
 		#
 		name		= 'a3',
-		version		= '0.6.1',
+		version		= '0.7.1',
 
 		#
 		# Author Information
@@ -59,7 +59,6 @@ if __name__ == '__main__':
 		#
 		entry_points	= '''
 		[console_scripts]
-		a3d = a3.httpd:start_httpd
 		''',
 
 		#

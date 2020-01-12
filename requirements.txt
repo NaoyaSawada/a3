@@ -3,12 +3,6 @@
 # Web Framework
 #
 waitress==1.1.0
-pyramid==1.9.1
-
-#
-# Template Engine
-#
-pyramid-jinja2==2.7
 
 #
 # SQLAlchemy
@@ -17,22 +11,12 @@ SQLAlchemy==1.2.6
 alembic==0.9.9
 
 #
-# JSON Validation
+# GRPC
 #
-jsonschema==2.6.0
+grpcio-tools
 
 #
 # Command Line Tools
 #
 click==7.0
-
-#
-# In-Memory DB
-#
-cachetools==3.0.0
-
-#
-# Test Code
-#
-requests==2.20.1
 
