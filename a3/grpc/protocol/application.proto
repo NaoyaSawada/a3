@@ -3,12 +3,12 @@ syntax = "proto3";
 import "response.proto";
 package a3;
 
-message AppComponent {
+message ApplicationCreateRequest {
 	string name = 1;
 }
 
 service Application {
-	rpc create (AppComponent) returns (OKResponse) {}
+	rpc create (ApplicationCreateRequest) returns (OKResponse) {}
 	rpc list (NULL) returns (OKResponse) {}
 }
 
