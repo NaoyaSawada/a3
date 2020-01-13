@@ -13,7 +13,9 @@ alembic==0.9.9
 #
 # GRPC
 #
-grpcio-tools
+grpcio==1.26.0
+grpcio-tools==1.26.0
+protobuf==3.11.2
 
 #
 # Command Line Tools
