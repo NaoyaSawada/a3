@@ -20,3 +20,8 @@ grpcio-tools
 #
 click==7.0
 
+#
+# Web Application Framework
+#
+Flask==1.1.1
+

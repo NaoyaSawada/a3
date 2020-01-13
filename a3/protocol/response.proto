@@ -1,8 +1,11 @@
 syntax = "proto3";
 
-package com.tuntunkun.a3;
+package a3;
 
-message ResponseComponent {
+message NULL {
+}
+
+message OKResponse {
 	bool ok = 1;
 	string error = 2;
 }
