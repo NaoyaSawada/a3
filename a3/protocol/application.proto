@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "response.proto";
+package a3;
+
+message AppComponent {
+	string name = 1;
+}
+
+service Application {
+	rpc create (AppComponent) returns (OKResponse) {}
+	rpc list (NULL) returns (OKResponse) {}
+}
+
