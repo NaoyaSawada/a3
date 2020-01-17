@@ -4,7 +4,6 @@ python:
 
 install:
   - pip install robotframework
-  - git clone https://github.com/NaoyaSawada/a3.git -b develop
 
 script:
   - python setup.py test
