@@ -61,10 +61,5 @@ if __name__ == '__main__':
 		[console_scripts]
 		a3d = a3.httpd:start_daemons
 		''',
-
-		#
-		# Test Case
-		#
-		test_suite	= 'test_cases',
 	)
 

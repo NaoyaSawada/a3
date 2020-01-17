@@ -6,6 +6,6 @@ if __name__ == '__main__':
 	with grpc.insecure_channel('localhost:2020') as channel:
 		stub = ApplicationStub(channel)
 		print(stub.create(ApplicationCreateRequest(
-			name = 'SAWADA'
+			#name = 'SAWADA'
 		)))
 

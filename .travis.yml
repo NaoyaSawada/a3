@@ -3,21 +3,12 @@ python:
   - 3.6
 
 install:
-  - pip install git+https://github.com/NaoyaSawada/a3.git
-
-before_script:
-  - a3d &
-  - KINESALITE_PID=$!
-  - sleep 10
+  - pip install robotframework
+  - git clone https://github.com/NaoyaSawada/a3.git -b develop
 
 script:
   - python setup.py test
-
-after_success:
-  - coverage html
-
-after_script:
-  - kill $KINESALITE_PID
+  - robot ./test_cases/hello.robot
 
 notifications:
   slack: tuntunkun:puqmjBAZ8WDYrMN1HaKNrmHd

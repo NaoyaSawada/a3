@@ -6,6 +6,12 @@ from google.protobuf.json_format import MessageToDict
 import jsonschema
 from a3.common.schema.service.application import create
 
+#
+# Database
+#
+from a3.db import SessionFactory
+from a3.model import Application
+
 class ApplicationService(ApplicationServicer):
 	def create(self, request, response):
 		#
@@ -27,6 +33,15 @@ class ApplicationService(ApplicationServicer):
 		#
 		except jsonschema.ValidationError as e:
 			return OKResponse(ok = False, error = e)
+
+		#
+		# DB へ 登録
+		#
+		print('OK')
+		session = SessionFactory.createSession()
+		application = Application(**element_dict)
+		session.add(application)
+		session.commit()
 
 		#
 		# 成功時の処理

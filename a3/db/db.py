@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+from configparser import ConfigParser
 
 #
 # SQLAlchemy
@@ -9,21 +10,20 @@ from sqlalchemy import engine_from_config, pool
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from alembic.config import Config
-import pkg_resources
 
 #
 # スクリプトを実行するディレクトリ設定
 #
-base_path = os.path.dirname(os.path.abspath(__file__))
-base_path = os.path.abspath(os.path.join(base_path, '../'))
+from a3 import base_path, config_path
 os.chdir(base_path)
 
 #
 # SQL エンジンの取得
 #
-config = Config(pkg_resources.resource_filename('a3', 'alembic.ini'))
+config = ConfigParser()
+config.read(config_path)
 Engine = engine_from_config(
-	config.get_section(config.config_ini_section),
+	config['alembic'],
 	prefix = 'sqlalchemy.',
 	poolclass = pool.NullPool
 )

@@ -3,6 +3,9 @@ from flask import Flask
 
 app = Flask(__name__)
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 #
 # GRPCDの起動
 #
